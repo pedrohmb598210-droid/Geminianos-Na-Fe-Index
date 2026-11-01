@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geminianos na Fé ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Modo Claro (Padrão) */
+        :root {
+            --bg-gradient-1: #e0f0ff;
+            --bg-gradient-2: #ffffff;
+            --bg-gradient-3: #f0f4ff;
+            --text-primary: #1e3a5f;
+            --text-secondary: #2c4b6e;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-shadow: rgba(74, 144, 226, 0.15);
+            --accent-blue: #4a90e2;
+            --accent-gold: #d4af37;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --section-bg: rgba(74, 144, 226, 0.08);
+            --contact-bg: rgba(212, 175, 55, 0.08);
+            --toggle-bg: #4a90e2;
+            --input-border: #4a90e2;
+        }
+
+        /* Modo Escuro */
+        body.dark-mode {
+            --bg-gradient-1: #0f1c2e;
+            --bg-gradient-2: #152238;
+            --bg-gradient-3: #0a1428;
+            --text-primary: #e6f0ff;
+            --text-secondary: #c9daf0;
+            --card-bg: rgba(26, 44, 71, 0.75);
+            --card-shadow: rgba(0, 0, 0, 0.3);
+            --accent-blue: #6ab0ff;
+            --accent-gold: #e6c660;
+            --border-color: rgba(212, 175, 55, 0.3);
+            --section-bg: rgba(212, 175, 55, 0.05);
+            --contact-bg: rgba(74, 144, 226, 0.08);
+            --toggle-bg: #d4af37;
+            --input-border: #d4af37;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 50%, var(--bg-gradient-3) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            transition: background 0.6s ease, color 0.4s ease;
+        }
+
+        header {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gemini-symbol {
+            font-size: 3rem;
+            color: var(--accent-gold);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+
+        .time-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            border: none;
+            background: var(--toggle-bg);
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .time-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .section-selector {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        select {
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--input-border);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 8px 32px var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        .wellness-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(212, 175, 55, 0.1));
+            border: 2px solid var(--accent-gold);
+        }
+
+        .refresh-btn {
+            display: block;
+            margin: 0 auto 2rem;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-gold));
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(74, 144, 226, 0.4);
+        }
+
+        .team-section {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: var(--section-bg);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .team-section h2 {
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-section p {
+            color: var(--text-secondary);
+        }
+
+        .team-profiles {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .profile-card {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+        }
+
+        .profile-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .profile-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .contact-section {
+            background: var(--contact-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-section h2 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            color: var(--text-secondary);
+        }
+
+        .email-link {
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.7rem 1.2rem;
+            background: rgba(74, 144, 226, 0.1);
+            border-radius: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .youtube { background: #ff0000; color: white; }
+        .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+        .facebook { background: #1877f2; color: white; }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: var(--text-secondary);
+        }
+
+        .color-swatch {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid rgba(0,0,0,0.15);
+            vertical-align: middle;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="time-toggle" id="modeToggle">🌙 Modo Escuro</button>
+        <div class="logo-container">
+            <span class="gemini-symbol">♊</span>
+            <h1>Geminianos na Fé</h1>
+        </div>
+        <p class="subtitle">Luz, sabedoria e fé para os filhos de Gêmeos — dia e noite, sempre com você ✨</p>
+    </header>
+
+    <div class="container">
+        <!-- Seletor de Signo e Ascendente -->
+        <div class="section-selector">
+            <label for="signSelect">Escolha seu signo e/ou ascendente: </label>
+            <select id="signSelect">
+                <option value="gemini">♊ Gêmeos (Signo Solar)</option>
+                <option value="aries">♈ Áries em Gêmeos</option>
+                <option value="taurus">♉ Touro em Gêmeos</option>
+                <option value="cancer">♋ Câncer em Gêmeos</option>
+                <option value="leo">♌ Leão em Gêmeos</option>
+                <option value="virgo">♍ Virgem em Gêmeos</option>
+                <option value="libra">♎ Libra em Gêmeos</option>
+                <option value="scorpio">♏ Escorpião em Gêmeos</option>
+                <option value="sagittarius">♐ Sagitário em Gêmeos</option>
+                <option value="capricorn">♑ Capricórnio em Gêmeos</option>
+                <option value="aquarius">♒ Aquário em Gêmeos</option>
+                <option value="pisces">♓ Peixes em Gêmeos</option>
+            </select>
+        </div>
+
+        <button class="refresh-btn" id="refreshBtn">🔄 Atualizar Todas as Mensagens</button>
+
+        <!-- Cards de Conteúdo -->
+        <div class="cards-grid">
+            <!-- Bem-Estar Mental -->
+            <div class="card wellness-card">
+                <h3>💛 Mensagem de Bem-Estar Mental</h3>
+                <div class="card-content" id="wellnessMessage">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>☀️ Conselho do Dia</h3>
+                <div class="card-content" id="adviceDay">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>🌙 Conselho da Noite</h3>
+                <div class="card-content" id="adviceNight">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>🎵 Música do Dia</h3>
+                <div class="card-content" id="musicDay">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>🌌 Música da Noite</h3>
+                <div class="card-content" id="musicNight">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>📖 Versículo do Dia</h3>
+                <div class="card-content" id="verseDay">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>✨ Versículo da Noite</h3>
+                <div class="card-content" id="verseNight">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>🎬 Filme do Dia</h3>
+                <div class="card-content" id="movieDay">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>🌑 Filme da Noite</h3>
+                <div class="card-content" id="movieNight">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>⭐ Personagem Favorito do Dia</h3>
+                <div class="card-content" id="charDay">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>🌟 Personagem Favorito da Noite</h3>
+                <div class="card-content" id="charNight">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>🎨 Cor do Dia</h3>
+                <div class="card-content" id="colorDay">— Clique em atualizar —</div>
+            </div>
+
+            <div class="card">
+                <h3>🌑 Cor da Noite</h3>
+                <div class="card-content" id="colorNight">— Clique em atualizar —</div>
+            </div>
+        </div>
+
+        <!-- Protagonistas -->
+        <div class="team-section">
+            <h2>💛 Nossos Protagonistas</h2>
+            <p>Com amor e fé, construímos este espaço para você</p>
+            <div class="team-profiles">
+                <div class="profile-card">
+                    <div class="profile-img">👩‍🦱</div>
+                    <h3>Paula Alessandra Morélia</h3>
+                    <p>A voz que acolhe e inspira</p>
+                </div>
+                <div class="profile-card">
+                    <div class="profile-img">👨‍🦱</div>
+                    <h3>Herlando Soares da Morélia</h3>
+                    <p>A força e a sabedoria que guiam</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contato e Redes Sociais -->
+        <div class="contact-section">
+            <h2>📬 Entre em Contato e Siga-nos!</h2>
+            <p>Tem alguma mensagem ou quer conversar? Envie um e-mail!</p>
+            <a href="mailto:geminianosnafebroficial@gmail.com" class="email-link">geminianosnafebroficial@gmail.com</a>
+            <p style="margin-top: 0.5rem; font-size: 0.95rem;">💡 Respondo 24 horas por dia! ✨</p>
+
+            <div class="social-links">
+                <a href="https://youtube.com/@geminianosnafebr?si=dxqZqJZKtIpr2qM-" target="_blank" class="social-link youtube">▶️ Inscreva-se no YouTube!</a>
+                <a href="https://instagram.com" target="_blank" class="social-link instagram">📷 Siga no Instagram</a>
+                <a href="https://facebook.com" target="_blank" class="social-link facebook">📘 Siga no Facebook</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>♊ Geminianos na Fé — Todos os direitos reservados © 2026</p>
+        <p>Com a bênção de Deus, sempre em frente ✨</p>
+    </footer>
+
+    <script>
+        // Dados completos do site
+        const data = {
+            wellness: [
+                "💛 Respire fundo... você está fazendo o seu melhor, e isso já é suficiente. Sua mente merece paz, seu coração merece descanso. Não se cobre tanto — cada pequeno passo é uma vitória. Amanhã trará uma nova luz, e você vai brilhar. Você é importante, você é amado, e tudo vai ficar bem. 💫",
+                "💛 Lembre-se: seus sentimentos são válidos, mas eles não definem quem você é. Você é mais forte do que seus desafios, mais brilhante do que seus medos. Dê um passo de cada vez — não precisa correr. A sua saúde mental é uma jornada, não uma corrida. Tenha paciência consigo mesmo, como você teria com alguém que ama. 💫",
+                "💛 Às vezes, precisamos parar um pouco para recarregar. Isso não é fraqueza — é sabedoria. Sua mente é preciosa, cuide dela com gentileza. Há esperança, há luz, há um caminho. Mesmo nos dias mais cinzentos, lembre-se: o sol sempre volta a brilhar. E você não está sozinho. 💫",
+                "💛 Você já superou tantas coisas até chegar aqui. Isso prova que você é resiliente e forte. Permita-se sentir, mas não se perca nos sentimentos. Há sempre uma saída, há sempre uma nova perspectiva. Sua vida tem valor, sua história é importante. Confie no processo. 💫",
+                "💛 Seja gentil com você mesmo hoje. A mente precisa de descanso tanto quanto o corpo. Não se cobre respostas agora — respire, confie e siga em frente, um momento de cada vez. Você merece estar bem, e vai estar. 💫",
+                "💛 Sua paz interior é o seu maior tesouro. Proteja-a com carinho. Não compare sua jornada com a de ninguém — cada um tem seu tempo, sua história, suas lutas. Você está no caminho certo. Acredite em você, como eu acredito em você. 💫"
+            ],
+            adv
